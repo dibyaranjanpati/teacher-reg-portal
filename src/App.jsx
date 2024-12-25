@@ -1,23 +1,35 @@
 import {} from "react";
 import "./App.css";
-import Register from "./components/Register";
 import HomePage from "./components/HomePage";
-import RegisterPage from "./components/RegisterPage";
-import { BrowserRouter, Route, Router, Routes } from "react-router-dom";
-import Login from "./components/LogIn";
+import {
+  BrowserRouter,
+  Navigate,
+  Route,
+  Router,
+  Routes,
+} from "react-router-dom";
 import LogPage from "./components/LogPage";
+import NewRegPage from "./components/NewRegPage";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
   return (
     <>
-      <LogPage />
-      {/* <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<RegisterPage />} />
-          <Route path="/home" element={<HomePage />} />
-          <Route path="/home" element={<Login />} />
-        </Routes>
-      </BrowserRouter> */}
+      <Routes>
+        <Route path="/login" element={<LogPage />} />
+        <Route path="/register" element={<NewRegPage />} />
+        {/* // for protect the home page */}
+        <Route
+          path="/"
+          element={
+            <ProtectedRoute>
+              <HomePage />
+            </ProtectedRoute>
+          }
+        />
+        {/* Default Route */}
+        <Route path="*" element={<Navigate to="/login" replace />} />
+      </Routes>
     </>
   );
 }
